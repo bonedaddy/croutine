@@ -7,7 +7,7 @@
 
 typedef struct go_thread_data {
     int tid;
-    double stuff;
+    char *data;
 } go_data;
 
 typedef struct go_goroutine_future{
@@ -21,7 +21,6 @@ typedef struct go_goroutine_future{
 
 struct go_goroutine_future *new_go_goroutine_future();
 
-/* fire_go_goroutine_fut: equivalent to "go ..." and a  channel*/
 void fire_go_goroutine_fut(
     pthread_t *thread, 
     pthread_attr_t *attr,
