@@ -1,3 +1,3 @@
 build-go:
-	cc -c -Wall ./test/go.c
-	cc ./go.o -lpthread -o go_goroutine
+	cc -c -Wall ./test/croutine.c
+	cc ./croutine.o -lpthread -o croutine
