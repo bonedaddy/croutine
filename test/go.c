@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "../src/go/go.c"
+#include "../include/array_len/array_len.h"
 #include <time.h>
 #ifdef _WIN32 // conditionally import sleep
 #include <Windows.h>
@@ -27,7 +28,7 @@ int main() {
     for (int i = 0; i < MAX_THREADS; i++) {
         futures[i] = new_go_goroutine_future();
     }
-    for (int i = 0; i < MAX_THREADS; ++i) {
+    for (int i = 0; i < array_len(futures); ++i) {
         int id = i + 1;
         threads_data[i].tid = id;
         fire_go_goroutine_fut(
@@ -38,10 +39,10 @@ int main() {
             futures[i]
         );
     }
-    for (int i = 0; i < MAX_THREADS; ++i) {
+    for (int i = 0; i < array_len(futures); ++i) {
         pthread_join(threads[i], NULL);
     }
-    for (int i = 0; i < MAX_THREADS; ++i) {
+    for (int i = 0; i < array_len(futures); ++i) {
         if (get_exit_code_go_goroutine_fut(futures[i]) != 0) {
             perror("non zero exit code");
             exit((*futures[i]).exitCode);
