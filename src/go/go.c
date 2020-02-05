@@ -17,6 +17,7 @@
 void *go_process_func(void *arg) {
     // type cast pointer arg to pointer go_data struct
     go_data *data = (go_data *)arg;
+    sleep((*data).tid);
     printf("hello from go_process_func, thread id: %d\n", data->tid);
     pthread_exit(NULL);
 }
@@ -83,7 +84,8 @@ int main() {
         futures[i] = new_go_goroutine_future();
     }
     for (int i = 0; i < MAX_THREADS; ++i) {
-        threads_data[i].tid = i;
+        int id = i + 1;
+        threads_data[i].tid = id;
         fire_go_goroutine_fut(
             &threads[i],
             NULL,
